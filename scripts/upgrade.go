@@ -10,7 +10,7 @@ import (
 )
 
 func getMods() (mods []string) {
-	dirs := []string{"src", "tests"}
+	dirs := []string{"."}
 
 	for _, dir := range dirs {
 		err := filepath.Walk(dir, func(path string, info fs.FileInfo, err error) error {

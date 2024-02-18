@@ -1,8 +1,8 @@
 <h1 align="center">
 
-<!-- [![logo readme](https://raw.githubusercontent.com/bastean/codexgo/main/docs/readme/logo-readme.png)](https://github.com/bastean) -->
+<!-- [![logo readme](https://raw.githubusercontent.com/bastean/laika/main/docs/readme/logo-readme.png)](https://github.com/bastean) -->
 
-[![logo readme](docs/readme/logo-readme.png)](https://github.com/bastean/codexgo)
+[![logo readme](docs/readme/logo-readme.png)](https://github.com/bastean/laika)
 
 </h1>
 
@@ -19,15 +19,15 @@
 [![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](https://github.com/commitizen/cz-cli)
 [![release it](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-release--it-orange.svg)](https://github.com/release-it/release-it)
-[![github release](https://img.shields.io/github/v/release/bastean/codexgo.svg)](https://github.com/bastean/codexgo/releases)
+[![github release](https://img.shields.io/github/v/release/bastean/laika.svg)](https://github.com/bastean/laika/releases)
 
 </div>
 
 <div align="center">
 
-[![upgrade workflow](https://github.com/bastean/codexgo/actions/workflows/upgrade.yml/badge.svg)](https://github.com/bastean/codexgo/actions/workflows/upgrade.yml)
-[![ci workflow](https://github.com/bastean/codexgo/actions/workflows/ci.yml/badge.svg)](https://github.com/bastean/codexgo/actions/workflows/ci.yml)
-[![release workflow](https://github.com/bastean/codexgo/actions/workflows/release.yml/badge.svg)](https://github.com/bastean/codexgo/actions/workflows/release.yml)
+[![upgrade workflow](https://github.com/bastean/laika/actions/workflows/upgrade.yml/badge.svg)](https://github.com/bastean/laika/actions/workflows/upgrade.yml)
+[![ci workflow](https://github.com/bastean/laika/actions/workflows/ci.yml/badge.svg)](https://github.com/bastean/laika/actions/workflows/ci.yml)
+[![release workflow](https://github.com/bastean/laika/actions/workflows/release.yml/badge.svg)](https://github.com/bastean/laika/actions/workflows/release.yml)
 
 </div>
 
@@ -79,13 +79,13 @@
 #### HTTPS
 
 ```bash
-git clone https://github.com/bastean/codexgo.git && cd codexgo
+git clone https://github.com/bastean/laika.git && cd laika
 ```
 
 #### SSH
 
 ```bash
-git clone git@github.com:bastean/codexgo.git && cd codexgo
+git clone git@github.com:bastean/laika.git && cd laika
 ```
 
 ### Initialize
