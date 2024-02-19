@@ -49,3 +49,4 @@ vite.config.ts.timestamp-*
 ignore
 reports
 tmp
+laika*.json

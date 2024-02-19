@@ -1,5 +1,5 @@
 package sniff
 
-func Emails(html string) []string {
+func Emails(content string) []string {
 	return []string{"email@example.com"}
 }
