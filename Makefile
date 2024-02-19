@@ -43,13 +43,16 @@ upgrade:
 init: upgrade-manager
 	@${npm-ci}
 	@go install honnef.co/go/tools/cmd/staticcheck@latest
+	@go install github.com/a-h/templ/cmd/templ@latest
 	@curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin v3.63.11
 
 lint:
 	@gofmt -l -s -w . tests/
 	@${npx} prettier --ignore-unknown --write .
+	@templ generate
+	@templ fmt .
 	@${go-tidy}
-	@cd tests/ && ${go-tidy}
+	@cd tests/server && ${go-tidy}
 
 lint-check:
 	@staticcheck ./... ./tests/...
@@ -78,6 +81,9 @@ release-dry-version:
 
 release-dry-changelog:
 	@${release-it-dry} --changelog
+
+test-run-server:
+	@PORT=8080 ALLOWED_HOSTS=localhost:8080 air
 
 test:
 	@go clean -testcache

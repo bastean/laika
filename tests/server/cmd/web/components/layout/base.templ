@@ -1,0 +1,115 @@
+package layout
+
+css email() {
+	display: none;
+}
+
+script write() {
+    document.write('e'+'m'+'a'+'i'+'l'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');
+}
+
+script writeHref() {
+    document.write('<a href="mailto:'+'e'+'m'+'a'+'i'+'l'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m'+'">email</a>');
+}
+
+templ Base(title string, content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta name="description" content="laika"/>
+			<meta name="keywords" content="laika"/>
+			<meta name="theme-color" content="#232627"/>
+			<meta name="apple-mobile-web-app-capable" content="yes"/>
+			<meta
+				name="apple-mobile-web-app-status-bar-style"
+				content="black-translucent"
+			/>
+			<!-- Remove "meta robots" and "robots.txt" rules for SEO -->
+			<meta
+				name="robots"
+				content="noindex, nofollow, noarchive, nositelinkssearchbox, nosnippet, notranslate, noimageindex"
+			/>
+			<!-- Dependencies/Start -->
+			<!-- HTMX -->
+			<script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+			<!-- Tailwind/Extensions -->
+			<link
+				href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css"
+				rel="stylesheet"
+				type="text/css"
+			/>
+			<!-- Tailwind -->
+			<script src="https://cdn.tailwindcss.com"></script>
+			<!-- Dependencies/End -->
+			<link rel="manifest" href="/public/static/manifest.json"/>
+			<link
+				rel="apple-touch-icon"
+				href="/public/static/assets/apple-touch-icon.png"
+			/>
+			<link rel="icon" href="/public/static/assets/favicon.png"/>
+			<title>{ title }</title>
+		</head>
+		<body>
+			<div class="w-full overflow-y-auto overflow-x-hidden">
+				<div
+					id="main"
+					class="container mx-auto p-10 flex flex-col"
+				>
+					<div class="flex flex-col gap-3 w-full items-center">
+						<div class="flex flex-col gap-3 w-full border-opacity-50 items-center">
+							<div class="divider"><span class="badge badge-primary font-semibold">Plain text</span></div>
+							<div class="divider"><span class="badge badge-info">No protection</span></div>
+							<span class="badge badge-neutral">email@example.com</span>
+							<div class="divider"><span class="badge badge-info">HTML Entities</span></div>
+							<span class="badge badge-neutral">&#101;&#109;&#97;&#105;&#108;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</span>
+							<div class="divider"><span class="badge badge-info">HTML Comments</span></div>
+							<span class="badge badge-neutral">
+								email@example<!--.example-->
+								.com
+							</span>
+							<div class="divider"><span class="badge badge-info">CSS Display none</span></div>
+							<span class="badge badge-neutral">
+								email@example<b class={ email() }>.example</b>.com
+							</span>
+							<div class="divider"><span class="badge badge-info">JS Concatenation</span></div>
+							<span class="badge badge-neutral">
+								@write()
+							</span>
+							<div class="divider"><span class="badge badge-info">HTML Symbol substitution</span></div>
+							<span class="badge badge-neutral">
+								email AT example DOT com
+							</span>
+							<span class="badge badge-neutral">
+								email [at] example [dot] com
+							</span>
+							<span class="badge badge-neutral">
+								email(at)example(.)com
+							</span>
+							<div class="divider"><span class="badge badge-primary font-semibold">Clickable link</span></div>
+							<div class="divider"><span class="badge badge-info">No protection</span></div>
+							<span class="badge badge-neutral">
+								<a href="mailto:email@example.com">email</a>
+							</span>
+							<div class="divider"><span class="badge badge-info">HTML entities</span></div>
+							<span class="badge badge-neutral">
+								<a href="">TODO</a>
+							</span>
+							<div class="divider"><span class="badge badge-info">URL encoding</span></div>
+							<span class="badge badge-neutral">
+								<a href="mailto:%65%6d%61%69%6c%40%65%78%61%6d%70%6c%65%2e%63%6f%6d">email</a>
+							</span>
+							<div class="divider"><span class="badge badge-info">Concatenation JS</span></div>
+							<span class="badge badge-neutral">
+								@writeHref()
+							</span>
+							<div class="divider"></div>
+							@content
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>
+	</html>
+}

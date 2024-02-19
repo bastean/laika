@@ -1,0 +1,27 @@
+{
+  "name": "laika",
+  "short_name": "laika",
+  "version": "0.0.0",
+  "description": "laika",
+  "author": "Bastean <manifest@example.com>",
+  "homepage_url": "https://github.com/bastean/laika#readme",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#232627",
+  "theme_color": "#232627",
+  "icons": [
+    {
+      "src": "assets/pwa-any.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pwa-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ]
+}
