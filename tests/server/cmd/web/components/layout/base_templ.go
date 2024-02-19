@@ -21,23 +21,33 @@ func email() templ.CSSClass {
 	}
 }
 
-func write() templ.ComponentScript {
+func writeConcatenation(title string) templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_write_5bbd`,
-		Function: `function __templ_write_5bbd(){document.write('e'+'m'+'a'+'i'+'l'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');
+		Name: `__templ_writeConcatenation_48ee`,
+		Function: `function __templ_writeConcatenation_48ee(title){document.write(title+'+'+'0'+'5'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');
 }`,
-		Call:       templ.SafeScript(`__templ_write_5bbd`),
-		CallInline: templ.SafeScriptInline(`__templ_write_5bbd`),
+		Call:       templ.SafeScript(`__templ_writeConcatenation_48ee`, title),
+		CallInline: templ.SafeScriptInline(`__templ_writeConcatenation_48ee`, title),
 	}
 }
 
-func writeHref() templ.ComponentScript {
+func writeHrefEntitie(title string) templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_writeHref_2d97`,
-		Function: `function __templ_writeHref_2d97(){document.write('<a href="mailto:'+'e'+'m'+'a'+'i'+'l'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m'+'">email</a>');
+		Name: `__templ_writeHrefEntitie_37e6`,
+		Function: `function __templ_writeHrefEntitie_37e6(title){document.write('<a href="mailto:'+title+'&#43;&#49;&#48;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;'+'">email</a>');
 }`,
-		Call:       templ.SafeScript(`__templ_writeHref_2d97`),
-		CallInline: templ.SafeScriptInline(`__templ_writeHref_2d97`),
+		Call:       templ.SafeScript(`__templ_writeHrefEntitie_37e6`, title),
+		CallInline: templ.SafeScriptInline(`__templ_writeHrefEntitie_37e6`, title),
+	}
+}
+
+func writeHrefConcatenation(title string) templ.ComponentScript {
+	return templ.ComponentScript{
+		Name: `__templ_writeHrefConcatenation_b5b4`,
+		Function: `function __templ_writeHrefConcatenation_b5b4(title){document.write('<a href="mailto:'+title+'+'+'1'+'2'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m'+'">email</a>');
+}`,
+		Call:       templ.SafeScript(`__templ_writeHrefConcatenation_b5b4`, title),
+		CallInline: templ.SafeScriptInline(`__templ_writeHrefConcatenation_b5b4`, title),
 	}
 }
 
@@ -61,18 +71,70 @@ func Base(title string, content templ.Component) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 51, Col: 17}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 55, Col: 17}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title></head><body><div class=\"w-full overflow-y-auto overflow-x-hidden\"><div id=\"main\" class=\"container mx-auto p-10 flex flex-col\"><div class=\"flex flex-col gap-3 w-full items-center\"><div class=\"flex flex-col gap-3 w-full border-opacity-50 items-center\"><div class=\"divider\"><span class=\"badge badge-primary font-semibold\">Plain text</span></div><div class=\"divider\"><span class=\"badge badge-info\">No protection</span></div><span class=\"badge badge-neutral\">email@example.com</span><div class=\"divider\"><span class=\"badge badge-info\">HTML Entities</span></div><span class=\"badge badge-neutral\">&#101;&#109;&#97;&#105;&#108;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</span><div class=\"divider\"><span class=\"badge badge-info\">HTML Comments</span></div><span class=\"badge badge-neutral\">email@example<!--.example-->.com</span><div class=\"divider\"><span class=\"badge badge-info\">CSS Display none</span></div><span class=\"badge badge-neutral\">email@example")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title></head><body><div class=\"w-full overflow-y-auto overflow-x-hidden\"><div id=\"main\" class=\"container mx-auto p-10 flex flex-col\"><div class=\"flex flex-col gap-3 w-full items-center\"><div class=\"flex flex-col gap-3 w-full border-opacity-50 items-center\"><div class=\"divider\"><span class=\"badge badge-primary font-semibold\">Plain text</span></div><div class=\"divider\"><span class=\"badge badge-info\">No protection</span></div><span class=\"badge badge-neutral\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var3 = []any{email()}
-		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var3...)
+		var templ_7745c5c3_Var3 string
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 67, Col: 48}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("+01@example.com </span><div class=\"divider\"><span class=\"badge badge-info\">HTML Entities</span></div><span class=\"badge badge-neutral\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 string
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 69, Col: 48}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&#43;&#48;&#50;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</span><div class=\"divider\"><span class=\"badge badge-info\">HTML Comments</span></div><span class=\"badge badge-neutral\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var5 string
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 72, Col: 15}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("+03@example<!--.example-->.com</span><div class=\"divider\"><span class=\"badge badge-info\">CSS Display none</span></div><span class=\"badge badge-neutral\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var6 string
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 77, Col: 15}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("+04@example")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var7 = []any{email()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var7...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -80,7 +142,7 @@ func Base(title string, content templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ.CSSClasses(templ_7745c5c3_Var3).String()))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ.CSSClasses(templ_7745c5c3_Var7).String()))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -88,15 +150,80 @@ func Base(title string, content templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = write().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = writeConcatenation(title).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span><div class=\"divider\"><span class=\"badge badge-info\">HTML Symbol substitution</span></div><span class=\"badge badge-neutral\">email AT example DOT com</span> <span class=\"badge badge-neutral\">email [at] example [dot] com</span> <span class=\"badge badge-neutral\">email(at)example(.)com</span><div class=\"divider\"><span class=\"badge badge-primary font-semibold\">Clickable link</span></div><div class=\"divider\"><span class=\"badge badge-info\">No protection</span></div><span class=\"badge badge-neutral\"><a href=\"mailto:email@example.com\">email</a></span><div class=\"divider\"><span class=\"badge badge-info\">HTML entities</span></div><span class=\"badge badge-neutral\"><a href=\"\">TODO</a></span><div class=\"divider\"><span class=\"badge badge-info\">URL encoding</span></div><span class=\"badge badge-neutral\"><a href=\"mailto:%65%6d%61%69%6c%40%65%78%61%6d%70%6c%65%2e%63%6f%6d\">email</a></span><div class=\"divider\"><span class=\"badge badge-info\">Concatenation JS</span></div><span class=\"badge badge-neutral\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span><div class=\"divider\"><span class=\"badge badge-info\">HTML Symbol substitution</span></div><span class=\"badge badge-neutral\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = writeHref().Render(ctx, templ_7745c5c3_Buffer)
+		var templ_7745c5c3_Var8 string
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 85, Col: 15}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("+06 AT example DOT com</span> <span class=\"badge badge-neutral\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var9 string
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 88, Col: 15}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("+07 [at] example [dot] com</span> <span class=\"badge badge-neutral\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var10 string
+		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `tests/server/cmd/web/components/layout/base.templ`, Line: 91, Col: 15}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("+08(at)example(.)com</span><div class=\"divider\"><span class=\"badge badge-primary font-semibold\">Clickable link</span></div><div class=\"divider\"><span class=\"badge badge-info\">No protection</span></div><span class=\"badge badge-neutral\"><a href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var11 templ.SafeURL = templ.SafeURL("mailto:" + title + "+09@example.com")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var11)))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">email</a></span><div class=\"divider\"><span class=\"badge badge-info\">HTML entities</span></div><span class=\"badge badge-neutral\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = writeHrefEntitie(title).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span><div class=\"divider\"><span class=\"badge badge-info\">URL encoding</span></div><span class=\"badge badge-neutral\"><a href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var12 templ.SafeURL = templ.SafeURL("mailto:" + title + "%2B%31%31%40%65%78%61%6D%70%6C%65%2E%63%6F%6D")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var12)))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">email</a></span><div class=\"divider\"><span class=\"badge badge-info\">Concatenation JS</span></div><span class=\"badge badge-neutral\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = writeHrefConcatenation(title).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

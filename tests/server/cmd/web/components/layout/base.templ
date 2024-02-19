@@ -4,12 +4,16 @@ css email() {
 	display: none;
 }
 
-script write() {
-    document.write('e'+'m'+'a'+'i'+'l'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');
+script writeConcatenation(title string) {
+    document.write(title+'+'+'0'+'5'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');
 }
 
-script writeHref() {
-    document.write('<a href="mailto:'+'e'+'m'+'a'+'i'+'l'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m'+'">email</a>');
+script writeHrefEntitie(title string) {
+    document.write('<a href="mailto:'+title+'&#43;&#49;&#48;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;'+'">email</a>');
+}
+
+script writeHrefConcatenation(title string) {
+    document.write('<a href="mailto:'+title+'+'+'1'+'2'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m'+'">email</a>');
 }
 
 templ Base(title string, content templ.Component) {
@@ -61,48 +65,48 @@ templ Base(title string, content templ.Component) {
 						<div class="flex flex-col gap-3 w-full border-opacity-50 items-center">
 							<div class="divider"><span class="badge badge-primary font-semibold">Plain text</span></div>
 							<div class="divider"><span class="badge badge-info">No protection</span></div>
-							<span class="badge badge-neutral">email@example.com</span>
+							<span class="badge badge-neutral">{ title }+01@example.com </span>
 							<div class="divider"><span class="badge badge-info">HTML Entities</span></div>
-							<span class="badge badge-neutral">&#101;&#109;&#97;&#105;&#108;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</span>
+							<span class="badge badge-neutral">{ title }&#43;&#48;&#50;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</span>
 							<div class="divider"><span class="badge badge-info">HTML Comments</span></div>
 							<span class="badge badge-neutral">
-								email@example<!--.example-->
+								{ title }+03@example<!--.example-->
 								.com
 							</span>
 							<div class="divider"><span class="badge badge-info">CSS Display none</span></div>
 							<span class="badge badge-neutral">
-								email@example<b class={ email() }>.example</b>.com
+								{ title }+04@example<b class={ email() }>.example</b>.com
 							</span>
 							<div class="divider"><span class="badge badge-info">JS Concatenation</span></div>
 							<span class="badge badge-neutral">
-								@write()
+								@writeConcatenation(title)
 							</span>
 							<div class="divider"><span class="badge badge-info">HTML Symbol substitution</span></div>
 							<span class="badge badge-neutral">
-								email AT example DOT com
+								{ title }+06 AT example DOT com
 							</span>
 							<span class="badge badge-neutral">
-								email [at] example [dot] com
+								{ title }+07 [at] example [dot] com
 							</span>
 							<span class="badge badge-neutral">
-								email(at)example(.)com
+								{ title }+08(at)example(.)com
 							</span>
 							<div class="divider"><span class="badge badge-primary font-semibold">Clickable link</span></div>
 							<div class="divider"><span class="badge badge-info">No protection</span></div>
 							<span class="badge badge-neutral">
-								<a href="mailto:email@example.com">email</a>
+								<a href={ templ.SafeURL("mailto:" + title + "+09@example.com") }>email</a>
 							</span>
 							<div class="divider"><span class="badge badge-info">HTML entities</span></div>
 							<span class="badge badge-neutral">
-								<a href="">TODO</a>
+								@writeHrefEntitie(title)
 							</span>
 							<div class="divider"><span class="badge badge-info">URL encoding</span></div>
 							<span class="badge badge-neutral">
-								<a href="mailto:%65%6d%61%69%6c%40%65%78%61%6d%70%6c%65%2e%63%6f%6d">email</a>
+								<a href={ templ.SafeURL("mailto:" + title + "%2B%31%31%40%65%78%61%6D%70%6C%65%2E%63%6F%6D") }>email</a>
 							</span>
 							<div class="divider"><span class="badge badge-info">Concatenation JS</span></div>
 							<span class="badge badge-neutral">
-								@writeHref()
+								@writeHrefConcatenation(title)
 							</span>
 							<div class="divider"></div>
 							@content

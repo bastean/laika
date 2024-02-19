@@ -1,0 +1,5 @@
+package partials
+
+templ Button(url, title string) {
+	<a href={ templ.SafeURL(url) } class="btn btn-info">{ title }</a>
+}
