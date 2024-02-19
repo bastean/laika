@@ -1,14 +1,21 @@
 package main
 
 import (
-	"os"
-
 	"github.com/bastean/laika"
 )
 
-var port = os.Getenv("PORT")
-var urls = []string{"localhost:" + port}
+var urls = []string{"http://localhost:8080/"}
 
 func main() {
-	laika.Sniff(urls).Emails()
+	sniff := laika.Sniff(urls)
+
+	emails := sniff.Emails()
+
+	if len(emails) != 0 {
+		err := sniff.Dump("laika")
+
+		if err != nil {
+			panic(err)
+		}
+	}
 }

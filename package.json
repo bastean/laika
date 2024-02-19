@@ -132,5 +132,9 @@
       ],
       "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}"
     }
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
   }
 }

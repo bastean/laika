@@ -44,6 +44,7 @@ init: upgrade-manager
 	@${npm-ci}
 	@go install honnef.co/go/tools/cmd/staticcheck@latest
 	@go install github.com/a-h/templ/cmd/templ@latest
+	@npm i concurrently wait-on
 	@curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin v3.63.11
 
 lint:
@@ -82,9 +83,12 @@ release-dry-version:
 release-dry-changelog:
 	@${release-it-dry} --changelog
 
-test-run-server:
+test-server:
 	@PORT=8080 ALLOWED_HOSTS=localhost:8080 air
 
-test:
+test-run:
 	@go clean -testcache
-	@cd tests/ && mkdir -p reports && go test -v -cover ./... > reports/report.txt
+	@cd tests/ && mkdir -p reports && TEST_URL='http://localhost:8080' go test -v -cover ./...
+
+test:
+	@${npx} concurrently -s first -k --names 'SUT,TEST' 'make test-server' '${npx} wait-on -l http-get://localhost:8080 && make test-run'
