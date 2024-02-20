@@ -1,6 +1,7 @@
 package sniff
 
 import (
+	"html"
 	"io"
 	"net/http"
 )
@@ -12,11 +13,11 @@ func Html(url string) (string, error) {
 		return "", err
 	}
 
-	html, err := io.ReadAll(resp.Body)
+	content, err := io.ReadAll(resp.Body)
 
 	if err != nil {
 		return "", err
 	}
 
-	return string(html), nil
+	return html.UnescapeString(string(content)), nil
 }
