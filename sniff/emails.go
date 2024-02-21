@@ -3,15 +3,26 @@ package sniff
 import (
 	"net/mail"
 	"regexp"
+	"strings"
 )
 
 var plainEmailRegex = regexp.MustCompile(`[\w\d.+~-]+@[A-Za-z-\d]+\.[a-z]{2,4}`)
+
 var htmlCommentRegex = regexp.MustCompile(`<!--.*?-->`)
+
+var concatenationRegex = regexp.MustCompile(`\([\w\d"'.+~-]+@[A-Za-z"'.+-]+\)`)
+var concatenationRemoveRegex = regexp.MustCompile(`[^()"'+]+`)
 
 func Emails(content string) []string {
 	rawEmails := []string{}
 
 	rawEmails = append(rawEmails, plainEmailRegex.FindAllString(content, -1)...)
+
+	for _, concat := range concatenationRegex.FindAllString(content, -1) {
+		letters := concatenationRemoveRegex.FindAllString(concat, -1)
+		rawEmail := strings.Join(letters, "")
+		rawEmails = append(rawEmails, rawEmail)
+	}
 
 	contentWithoutComments := htmlCommentRegex.ReplaceAllString(content, "")
 

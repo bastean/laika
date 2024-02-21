@@ -4,10 +4,6 @@ css email() {
 	display: none;
 }
 
-script writeConcatenation(title string) {
-    document.write(title+'+'+'0'+'5'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');
-}
-
 script writeHrefEntitie(title string) {
     document.write('<a href="mailto:'+title+'&#43;&#49;&#48;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;'+'">email</a>');
 }
@@ -79,7 +75,14 @@ templ Base(title string, content templ.Component) {
 							</span>
 							<div class="divider"><span class="badge badge-info">JS Concatenation</span></div>
 							<span class="badge badge-neutral">
-								@writeConcatenation(title)
+								switch title {
+									case "home":
+										<script>document.write('h'+'o'+'m'+'e'+'+'+'0'+'5'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');</script>
+									case "dashboard":
+										<script>document.write('d'+'a'+'s'+'h'+'b'+'o'+'a'+'r'+'d'+'+'+'0'+'5'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');</script>
+									case "admin":
+										<script>document.write('a'+'d'+'m'+'i'+'n'+'+'+'0'+'5'+'@'+'e'+'x'+'a'+'m'+'p'+'l'+'e'+'.'+'c'+'o'+'m');</script>
+								}
 							</span>
 							<div class="divider"><span class="badge badge-info">HTML Symbol substitution</span></div>
 							<span class="badge badge-neutral">
