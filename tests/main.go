@@ -9,14 +9,7 @@ var urls = []string{"http://localhost:8080/"}
 func main() {
 	sniff := laika.Sniff(urls)
 
-	emails := sniff.Emails()
+	sniff.ContentFromUrls()
 
-	if len(emails) != 0 {
-		err := sniff.Dump("laika")
-
-		if err != nil {
-			panic(err)
-		}
-	}
-
+	sniff.Emails()
 }

@@ -1,4 +1,4 @@
-package sniff
+package service
 
 import (
 	"html"
@@ -6,18 +6,18 @@ import (
 	"net/http"
 )
 
-func Html(url string) (string, error) {
+func ParseHtml(url string) string {
 	resp, err := http.Get(url)
 
 	if err != nil {
-		return "", err
+		panic(err)
 	}
 
 	content, err := io.ReadAll(resp.Body)
 
 	if err != nil {
-		return "", err
+		panic(err)
 	}
 
-	return html.UnescapeString(string(content)), nil
+	return html.UnescapeString(string(content))
 }

@@ -1,12 +1,14 @@
 module github.com/bastean/laika/test
 
-go 1.21.5
+go 1.21.7
 
 require (
 	github.com/JGLTechnologies/gin-rate-limit v1.5.4
 	github.com/a-h/templ v0.2.543
+	github.com/bastean/laika v0.0.0-20240219023822-c286b532de64
 	github.com/gin-contrib/secure v0.0.1
 	github.com/gin-gonic/gin v1.9.1
+	github.com/stretchr/testify v1.8.4
 )
 
 require (
@@ -31,8 +33,6 @@ require (
 	github.com/pelletier/go-toml/v2 v2.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/redis/go-redis/v9 v9.4.0 // indirect
-	github.com/stretchr/objx v0.5.1 // indirect
-	github.com/stretchr/testify v1.8.4 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	golang.org/x/arch v0.7.0 // indirect

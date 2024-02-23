@@ -1,11 +1,11 @@
-package sniff
+package service
 
 import (
 	"regexp"
 	"strings"
 )
 
-func Links(scheme, host, html string) []string {
+func ParseLinks(scheme, host, html string) []string {
 	href := regexp.MustCompile(`href="(` + scheme + `:\/\/` + host + `|` + host + `|\/).*?"`)
 
 	rawLinks := href.FindAllString(html, -1)

@@ -18,9 +18,21 @@ func (suite *LaikaTestSuite) SetupTest() {
 	suite.laika = laika.Sniff(urls)
 }
 
+func (suite *LaikaTestSuite) TestContentFromUrl() {
+	// TODO(test): content from url
+
+	expected := "x"
+	found := "y"
+
+	suite.EqualValues(expected, found)
+}
+
 func (suite *LaikaTestSuite) TestSniffEmails() {
-	expected := []string{"email@example.com"}
-	found := suite.laika.Emails()
+	// TODO(test): sniff emails
+
+	expected := "x"
+	found := "y"
+
 	suite.EqualValues(expected, found)
 }
 
