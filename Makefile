@@ -2,8 +2,6 @@
 
 git-reset-hard = git reset --hard HEAD
 
-go-tidy = go mod tidy -e
-
 npx = npx --no --
 npm-ci = npm ci --legacy-peer-deps
 
@@ -28,6 +26,9 @@ from-zero:
 upgrade-manager:
 	@npm upgrade -g
 
+upgrade-go:
+	@go get -u
+
 upgrade-node:
 	@${npx} ncu -u
 	@rm -f package-lock.json
@@ -48,15 +49,14 @@ init: upgrade-manager
 	@curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin v3.63.11
 
 lint:
-	@gofmt -l -s -w . tests/
+	@go mod tidy
+	@gofmt -l -s -w .
 	@${npx} prettier --ignore-unknown --write .
 	@templ generate
 	@templ fmt .
-	@${go-tidy}
-	@cd tests/server && ${go-tidy}
 
 lint-check:
-	@staticcheck ./... ./tests/...
+	@staticcheck ./...
 	@${npx} prettier --check .
 
 commit:
@@ -88,7 +88,8 @@ test-server:
 
 test-run:
 	@go clean -testcache
-	@cd tests/ && mkdir -p reports && TEST_URL='http://localhost:8080' go test -v -cover ./...
+	@cd test/ && mkdir -p reports
+	@TEST_URL='http://localhost:8080' go test -v -cover ./...
 
 test:
 	@${npx} concurrently -s first -k --names 'SUT,TEST' 'make test-server' '${npx} wait-on -l http-get://localhost:8080 && make test-run'

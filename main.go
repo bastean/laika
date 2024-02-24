@@ -1,7 +1,7 @@
 package laika
 
 import (
-	"github.com/bastean/laika/src/app/service"
+	"github.com/bastean/laika/internal/app/service"
 )
 
 type Laika struct {

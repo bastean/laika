@@ -1,8 +1,8 @@
 <h1 align="center">
 
-<!-- [![logo readme](https://raw.githubusercontent.com/bastean/laika/main/docs/readme/logo-readme.png)](https://github.com/bastean) -->
+<!-- [![logo readme](https://raw.githubusercontent.com/bastean/laika/main/assets/readme/logo-readme.png)](https://github.com/bastean) -->
 
-[![logo readme](docs/readme/logo-readme.png)](https://github.com/bastean/laika)
+[![logo readme](assets/readme/logo-readme.png)](https://github.com/bastean/laika)
 
 </h1>
 
@@ -189,13 +189,13 @@ make compose-prod
 
 <div align="center">
 
-<img src="docs/readme/desktop-welcome.png" />
+<img src="assets/readme/desktop-welcome.png" />
 
-<img src="docs/readme/desktop-dashboard.png" />
+<img src="assets/readme/desktop-dashboard.png" />
 
-<img width="49%" src="docs/readme/mobile-welcome.png" />
+<img width="49%" src="assets/readme/mobile-welcome.png" />
 
-<img width="49%" src="docs/readme/mobile-dashboard.png" />
+<img width="49%" src="assets/readme/mobile-dashboard.png" />
 
 </div>
 
