@@ -13,19 +13,19 @@ import (
 
 type Laika struct {
 	Data                *aggregate.Laika
-	Persistence         repository.Repository
+	Store               repository.Repository
 	SaveData            *saveData.SaveData
 	SniffContentFromUrl *sniffContentFromUrl.SniffContentFromUrl
 	SniffEmails         *sniffEmails.SniffEmails
 }
 
 func (laika *Laika) SetStore(persistence repository.Repository) {
-	laika.Persistence = persistence
+	laika.Store = persistence
 	laika.SaveData = saveData.NewSaveData(persistence)
 }
 
 func (laika *Laika) SaveSniffed() {
-	if laika.Persistence != nil {
+	if laika.Store != nil {
 		laika.SaveData.Run(laika.Data)
 	}
 }

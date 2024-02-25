@@ -16,7 +16,7 @@ tmp_dir = "tmp"
   follow_symlink = false
   full_bin = ""
   include_dir = [
-    "server"
+    "pkg/cmd/server"
   ]
   include_ext = [
     "go",
