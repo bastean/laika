@@ -45,7 +45,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Unit, Integration & Acceptance
-        run: make test
+        run: make test-run
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
