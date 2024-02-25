@@ -9,3 +9,11 @@ type Data struct {
 type Laika struct {
 	Sniffed map[string][]*Data
 }
+
+func Create() *Laika {
+	laika := new(Laika)
+
+	laika.Sniffed = make(map[string][]*Data)
+
+	return laika
+}

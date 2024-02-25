@@ -85,12 +85,12 @@ release-dry-changelog:
 	@${release-it-dry} --changelog
 
 test-server:
-	@PORT=8080 ALLOWED_HOSTS=localhost:8080 air
+	@air
+
+test-start:
+	@go clean -testcache
+	@cd test/ && mkdir -p report
+	@go test -v -cover ./... > test/report/report.txt
 
 test-run:
-	@go clean -testcache
-	@cd test/ && mkdir -p reports
-	@TEST_URL='http://localhost:8080' go test -v -cover ./...
-
-test:
-	@${npx} concurrently -s first -k --names 'SUT,TEST' 'make test-server' '${npx} wait-on -l http-get://localhost:8080 && make test-run'
+	@${npx} concurrently -s first -k --names 'SUT,TEST' 'make test-server' '${npx} wait-on -l http-get://localhost:8080 && make test-start'
