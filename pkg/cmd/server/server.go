@@ -7,28 +7,28 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 
-	"github.com/bastean/laika/server/router"
+	"github.com/bastean/laika/pkg/cmd/server/router"
 )
 
 //go:embed static
 var Files embed.FS
 
-var Port = os.Getenv("PORT")
-var Server = &http.Server{Addr: ":" + Port, Handler: router.New(&Files)}
-
-func Run() {
+func Run(port int) {
 	log.Println("starting server")
 
+	server := &http.Server{Addr: ":" + strconv.Itoa(port), Handler: router.New(&Files)}
+
 	go func() {
-		if err := Server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatal(err.Error())
 		}
 	}()
 
-	log.Println("listening and serving HTTP on :" + Port)
+	log.Println("listening and serving HTTP on :" + strconv.Itoa(port))
 
 	shutdown := make(chan os.Signal, 1)
 
@@ -42,7 +42,7 @@ func Run() {
 
 	defer cancel()
 
-	if err := Server.Shutdown(ctx); err != nil {
+	if err := server.Shutdown(ctx); err != nil {
 		log.Fatal(err.Error())
 	}
 

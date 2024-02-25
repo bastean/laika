@@ -42,6 +42,7 @@ upgrade:
 	@go run scripts/upgrade.go
 
 init: upgrade-manager
+	@go mod download
 	@${npm-ci}
 	@go install honnef.co/go/tools/cmd/staticcheck@latest
 	@go install github.com/a-h/templ/cmd/templ@latest

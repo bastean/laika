@@ -7,14 +7,7 @@ tmp_dir = "tmp"
   bin = "./tmp/main"
   cmd = "templ generate && go build -buildvcs=false -o ./tmp/main ./cmd/laika-server"
   delay = 1000
-  exclude_dir = [
-    "assets",
-    "node_modules",
-    "reports",
-    "testdata",
-    "tmp",
-    "vendor"
-  ]
+  exclude_dir = []
   exclude_file = []
   exclude_regex = [
     "_test.go"

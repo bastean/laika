@@ -1,15 +1,29 @@
 package main
 
 import (
+	"log"
+
 	"github.com/bastean/laika"
 )
 
 var urls = []string{"http://localhost:8080/"}
 
 func main() {
-	sniff := laika.Sniff(urls)
+	fromZero := laika.NewEmptyData()
 
-	sniff.ContentFromUrls()
+	// store := laika.NewLocalJsonStore(".", "laika")
 
-	sniff.Emails()
+	// fromExistingData := laika.ReadDataFromStore(store)
+
+	sniff := laika.New(fromZero)
+
+	// sniff.SetStore(store)
+
+	sniff.ContentFromUrls(urls)
+
+	sniff.EmailsFromContent()
+
+	log.Println(sniff.SniffedEmails())
+
+	// sniff.SaveSniffed()
 }

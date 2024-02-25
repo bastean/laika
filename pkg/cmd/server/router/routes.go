@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/bastean/laika/server/handler"
+	"github.com/bastean/laika/pkg/cmd/server/handler"
 )
 
 func InitRoutes() {

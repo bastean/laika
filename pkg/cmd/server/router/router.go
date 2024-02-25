@@ -4,7 +4,7 @@ import (
 	"embed"
 	"net/http"
 
-	"github.com/bastean/laika/server/middleware"
+	"github.com/bastean/laika/pkg/cmd/server/middleware"
 	"github.com/gin-gonic/gin"
 )
 

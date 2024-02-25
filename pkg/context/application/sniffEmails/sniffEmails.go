@@ -5,18 +5,13 @@ import (
 	"strings"
 
 	"github.com/bastean/laika/pkg/context/domain/aggregate"
-	"github.com/bastean/laika/pkg/context/domain/repository"
 	"github.com/bastean/laika/pkg/context/domain/service"
 )
 
-type SniffEmails struct {
-	Repository repository.Repository
-}
+type SniffEmails struct{}
 
-func (sniffEmails *SniffEmails) Run() {
+func (sniff *SniffEmails) Run(laika *aggregate.Laika) {
 	// TODO(refactor): sniff emails
-
-	laika := sniffEmails.Repository.Read()
 
 	laikaFound := new(aggregate.Laika)
 	laikaFound.Sniffed = make(map[string][]*aggregate.Data)
@@ -72,11 +67,9 @@ func (sniffEmails *SniffEmails) Run() {
 		}
 	}
 
-	sniffEmails.Repository.Save(laikaFound)
+	laika.Sniffed = laikaFound.Sniffed
 }
 
-func NewSniffEmails(repository repository.Repository) *SniffEmails {
-	return &SniffEmails{
-		repository,
-	}
+func NewSniffEmails() *SniffEmails {
+	return new(SniffEmails)
 }
