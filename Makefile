@@ -27,7 +27,7 @@ upgrade-manager:
 	@npm upgrade -g
 
 upgrade-go:
-	@go get -u
+	@go get -t -u ./...
 
 upgrade-node:
 	@${npx} ncu -u
