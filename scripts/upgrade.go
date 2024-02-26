@@ -23,8 +23,8 @@ func runLint() {
 	}
 }
 
-func runTests() {
-	if err := exec.Command("make", "compose-test").Run(); err != nil {
+func runTest() {
+	if err := exec.Command("make", "test-run").Run(); err != nil {
 		panic(err)
 	}
 }
@@ -62,8 +62,8 @@ func main() {
 	log.Println("Running Lint")
 	runLint()
 
-	log.Println("Running Tests")
-	runTests()
+	log.Println("Running Test")
+	runTest()
 
 	log.Println("Commit changes")
 	commit()
