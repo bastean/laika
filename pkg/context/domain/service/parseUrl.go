@@ -2,12 +2,12 @@ package service
 
 import "net/url"
 
-func ParseUrl(rawUrl string) *url.URL {
+func ParseUrl(rawUrl string) (*url.URL, error) {
 	urlParsed, err := url.Parse(rawUrl)
 
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	return urlParsed
+	return urlParsed, nil
 }

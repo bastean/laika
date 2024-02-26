@@ -10,10 +10,11 @@ type RepositoryMock struct {
 	mock.Mock
 }
 
-func (mock *RepositoryMock) Save(laika *aggregate.Laika) {
+func (mock *RepositoryMock) Save(laika *aggregate.Laika) error {
 	mock.Called(laika)
+	return nil
 }
 
-func (mock *RepositoryMock) Read() *aggregate.Laika {
-	return aggregateMother.Create()
+func (mock *RepositoryMock) Read() (*aggregate.Laika, error) {
+	return aggregateMother.Create(), nil
 }

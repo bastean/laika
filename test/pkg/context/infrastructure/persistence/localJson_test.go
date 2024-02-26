@@ -38,8 +38,9 @@ func (suite *LocalJsonTestSuite) TestRead() {
 
 	suite.NotPanics(func() { suite.sut.Save(expected) })
 
-	actual := suite.sut.Read()
+	actual, err := suite.sut.Read()
 
+	suite.NoError(err)
 	suite.EqualValues(expected, actual)
 }
 

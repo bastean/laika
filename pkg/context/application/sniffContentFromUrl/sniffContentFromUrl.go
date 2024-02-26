@@ -8,7 +8,12 @@ import (
 type SniffContentFromUrl struct{}
 
 func (sniffContent *SniffContentFromUrl) Run(data *aggregate.Laika, source string) {
-	url := service.ParseUrl(source)
+	url, err := service.ParseUrl(source)
+
+	if err != nil {
+		return
+	}
+
 	host := url.Host
 	path := url.Path
 
@@ -18,9 +23,9 @@ func (sniffContent *SniffContentFromUrl) Run(data *aggregate.Laika, source strin
 		}
 	}
 
-	html := service.ParseHtml(url.String())
+	html, err := service.ParseHtml(url.String())
 
-	if html == "" {
+	if html == "" || err != nil {
 		return
 	}
 

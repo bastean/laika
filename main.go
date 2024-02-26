@@ -64,7 +64,7 @@ func NewLocalJsonStore(path, filename string) *persistence.LocalJson {
 	return persistence.NewLocalJson(path, filename)
 }
 
-func ReadDataFromStore(persistence repository.Repository) *aggregate.Laika {
+func ReadDataFromStore(persistence repository.Repository) (*aggregate.Laika, error) {
 	return readData.NewReadData(persistence).Run()
 }
 

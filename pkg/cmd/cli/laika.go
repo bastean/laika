@@ -16,6 +16,7 @@ var jsonStore string
 var isUrls bool
 var sniffEmails bool
 var silent bool
+var err error
 
 func usage() {
 	fmt.Printf("Usage: %s [OPTIONS] sources... \n", cli)
@@ -59,7 +60,11 @@ func Run() {
 	data := laika.NewEmptyData()
 
 	if store != nil {
-		data = laika.ReadDataFromStore(store)
+		data, err = laika.ReadDataFromStore(store)
+
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	sniff := laika.New(data)

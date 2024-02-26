@@ -9,7 +9,7 @@ type ReadData struct {
 	Repository repository.Repository
 }
 
-func (read *ReadData) Run() *aggregate.Laika {
+func (read *ReadData) Run() (*aggregate.Laika, error) {
 	return read.Repository.Read()
 }
 

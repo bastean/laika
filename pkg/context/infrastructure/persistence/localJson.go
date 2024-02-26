@@ -13,62 +13,66 @@ type LocalJson struct {
 	Filename string
 }
 
-func (localJson *LocalJson) create() *os.File {
-	file, err := os.Create(filepath.Join(localJson.Path, filepath.Base(localJson.Filename)+".json"))
-
-	if err != nil {
-		panic(err)
-	}
-
-	return file
+func (localJson *LocalJson) create() (*os.File, error) {
+	return os.Create(filepath.Join(localJson.Path, filepath.Base(localJson.Filename)+".json"))
 }
 
-func (localJson *LocalJson) load() []byte {
+func (localJson *LocalJson) load() ([]byte, error) {
 	data, err := os.ReadFile(filepath.Join(localJson.Path, filepath.Base(localJson.Filename)+".json"))
 
 	if os.IsNotExist(err) {
 		localJson.create()
 	} else if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	return data
+	return data, nil
 }
 
-func (localJson *LocalJson) Save(laika *aggregate.Laika) {
+func (localJson *LocalJson) Save(laika *aggregate.Laika) error {
 	data, err := json.Marshal(laika)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	file := localJson.create()
+	file, err := localJson.create()
+
+	if err != nil {
+		return err
+	}
 
 	_, err = file.Write(data)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
 
-func (localJson *LocalJson) Read() *aggregate.Laika {
-	data := localJson.load()
+func (localJson *LocalJson) Read() (*aggregate.Laika, error) {
+	data, err := localJson.load()
+
+	if err != nil {
+		return nil, err
+	}
 
 	laika := new(aggregate.Laika)
 
 	if len(data) == 0 {
 		laika.Sniffed = make(map[string][]*aggregate.Data)
 
-		return laika
+		return laika, nil
 	}
 
-	err := json.Unmarshal(data, &laika)
+	err = json.Unmarshal(data, &laika)
 
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	return laika
+	return laika, nil
 }
 
 func NewLocalJson(path, filename string) *LocalJson {

@@ -5,6 +5,6 @@ import (
 )
 
 type Repository interface {
-	Save(laika *aggregate.Laika)
-	Read() *aggregate.Laika
+	Save(laika *aggregate.Laika) error
+	Read() (*aggregate.Laika, error)
 }

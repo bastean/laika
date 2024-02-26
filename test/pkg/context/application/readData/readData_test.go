@@ -22,8 +22,9 @@ func (suite *ReadDataTestSuite) SetupTest() {
 
 func (suite *ReadDataTestSuite) TestReadData() {
 	expected := aggregate.Create()
-	actual := suite.sut.Run()
+	actual, err := suite.sut.Run()
 
+	suite.NoError(err)
 	suite.EqualValues(expected, actual)
 }
 
