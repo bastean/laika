@@ -47,7 +47,6 @@ init: upgrade-manager
 	@go install honnef.co/go/tools/cmd/staticcheck@latest
 	@go install github.com/a-h/templ/cmd/templ@latest
 	@go install github.com/cosmtrek/air@latest
-	@npm i concurrently wait-on
 	@curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin v3.63.11
 
 lint:
