@@ -8,7 +8,7 @@
 
 <div align="center">
 
-> Example CRUD project applying Hexagonal Architecture, Domain-Driven Design (DDD), Command Query Responsibility Segregation (CQRS), Behavior-Driven Development (BDD), Continuous Integration (CI), and more... in Go
+> Laika sniffs content for emails, phone numbers and social media urls.
 
 </div>
 
@@ -33,169 +33,263 @@
 
 ## Features
 
-- Devcontainer
+- Plain text
 
-  - Features
-  - Extensions & Settings
+  - No protection
 
-- Docker
+    - [x] Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-  - Dockerfile
-    - Multistage
-  - Compose
-    - Setup by ENV
+  - HTML Entities
 
-- GitHub
+    - [x] Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-  - Actions & Workflows
-    - Setup Languages and Dependencies
-    - Secrets Scanning, Linting & Test Checks
-    - Upgrade Dependencies
-    - Automate Release
-  - Issue Templates (Defaults)
+  - HTML Comments
 
-- Git
+    - [x] Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-  - Hooks
-    - Pre-Commit
-      - Secrets Scanning & Formatting
-    - Commit-Msg
-      - Check [Conventional Commits](https://www.conventionalcommits.org) rules
+  - CSS Display none
 
-- Releases
+    - [ ] Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-  - Automatically
-    - Hooks
-      - Linting & Test Checks
-    - Bump Version (based on [Conventional Commits](https://www.conventionalcommits.org) & [SemVer](https://semver.org/))
-    - CHANGELOG
-    - Commit & Tag
-    - GitHub Release
+  - JS Concatenation
 
-## First Steps
+    - [x] ~Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-### Clone
+  - HTML Symbol substitution
 
-#### HTTPS
+    - [ ] Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-```bash
-git clone https://github.com/bastean/laika.git && cd laika
-```
+- Clickable link
 
-#### SSH
+  - No protection
 
-```bash
-git clone git@github.com:bastean/laika.git && cd laika
-```
+    - [x] Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-### Initialize
+  - HTML entities
 
-#### Dev Container (recommended)
+    - [x] ~Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-1. Install required
+  - URL encoding
 
-   - [Docker](https://docs.docker.com/get-docker)
+    - [ ] Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-     - [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+  - Concatenation JS
 
-2. Start VS Code
+    - [ ] Emails
+    - [ ] Phone Numbers
+    - [ ] Social Media URLs
 
-   ```bash
-   code .
-   ```
+## CLI
 
-3. Open Command Palette
-
-   - Ctrl+Shift+P
-
-4. Run
-
-   ```txt
-   Dev Containers: Reopen in Container
-   ```
-
-#### Locally
-
-1. Install required
-
-   - [Go](https://go.dev/doc/install)
-   - [Node](https://nodejs.org/en/download)
-   - [Make](https://www.gnu.org/software/make)
-   - [Docker](https://docs.docker.com/get-docker)
-
-2. Run
-
-   ```bash
-   make init
-   ```
-
-#### ZIP
-
-1. [Install required](#locally)
-
-2. Run
-
-   ```bash
-   make from-zero
-   ```
-
-### Repository
-
-#### Settings
-
-- Actions
-
-  - General
-
-    - Workflow permissions
-
-      - [x] Read and write permissions
-
-- Secrets and variables
-
-  - Actions
-
-    - New repository secret
-
-      - BOT_GPG_PRIVATE_KEY
-
-        ```bash
-        gpg --armor --export-secret-key [Pub_Key_ID (*-BOT)]
-        ```
-
-      - BOT_GPG_PASSPHRASE
-
-### Run
-
-#### Development
+### Installation
 
 ```bash
-make compose-dev
+go install github.com/bastean/laika/cmd/laika@latest
 ```
 
-#### Test
+### Usage
 
 ```bash
-make compose-test
+laika -h
 ```
 
-#### Production
+```text
+Usage: laika [OPTIONS] sources...
+
+Sniffs the content of the sources
+
+E.g.: laika -jsonStore "laika" -urls -emails http://localhost:8080/
+
+  -emails
+    	Sniff emails in the content (Required)
+  -jsonStore string
+    	Store filepath to save the sniffed content (default "In Memory")
+  -silent
+    	Do not show the sniffed content
+  -urls
+    	If the sources for sniffing content are urls (Required)
+```
+
+## Sniff Test Server
+
+### Installation
 
 ```bash
-make compose-prod
+go install github.com/bastean/laika/cmd/laika-server@latest
 ```
+
+### Usage
+
+```bash
+laika-server -h
+```
+
+```text
+Usage: laika-server [OPTIONS]
+
+Sniff Test Server
+
+E.g.: laika-server -p 8080
+
+  -p int
+    	Port (default 8080)
+```
+
+## Package
+
+### Installation
+
+```bash
+go get github.com/bastean/laika
+```
+
+### Update
+
+```bash
+go get -u github.com/bastean/laika
+```
+
+### Usage
+
+#### In Memory Store
+
+```go
+package main
+
+import (
+	"log"
+
+	"github.com/bastean/laika"
+)
+
+func main() {
+	// Test Server
+	sources := []string{"http://localhost:8080/"}
+
+	// Alias for "nil"
+	inMemory := laika.NewInMemoryStore()
+
+	fromZero := laika.NewEmptyData()
+
+	sniff := laika.New(fromZero)
+
+	sniff.SetStore(inMemory)
+
+	// Sniffs all HTML recursively
+	sniff.ContentFromUrls(sources)
+
+	// Sniffs all emails in the sniffed HTML
+	sniff.EmailsFromContent()
+
+	// Return an array with all emails sniffed from the HTML
+	emails := sniff.SniffedEmails()
+
+	log.Println(emails)
+}
+```
+
+#### Local Json Store
+
+```go
+package main
+
+import (
+	"log"
+
+	"github.com/bastean/laika"
+)
+
+func main() {
+	// Test Server
+	sources := []string{"http://localhost:8080/"}
+
+	localJson := laika.NewLocalJsonStore(".", "laika")
+
+	fromExistingData, err := laika.ReadDataFromStore(localJson)
+
+	if err != nil {
+		fromExistingData = laika.NewEmptyData()
+	}
+
+	sniff := laika.New(fromExistingData)
+
+	sniff.SetStore(localJson)
+
+	// Sniffs all HTML recursively
+	sniff.ContentFromUrls(sources)
+
+	// Sniffs all emails in the sniffed HTML
+	sniff.EmailsFromContent()
+
+	// Return an array with all emails sniffed from the HTML
+	emails := sniff.SniffedEmails()
+
+	log.Println(emails)
+
+	// Saves the sniffed data in the store
+	sniff.SaveSniffed()
+}
+```
+
+- **laika.json**
+
+  ```json
+  {
+    "Sniffed": {
+      "localhost:8080": [
+        {
+          "Source": "/",
+          "Content": "<html>...</html>",
+          "Found": {
+            "Emails": ["email@example.com", "..."]
+          }
+        },
+        {
+          "Source": "/dashboard",
+          "Content": "<html>...</html>",
+          "Found": {
+            "Emails": ["email@example.com", "..."]
+          }
+        },
+        {
+          "Source": "/dashboard/admin",
+          "Content": "<html>...</html>",
+          "Found": {
+            "Emails": ["email@example.com", "..."]
+          }
+        }
+      ]
+    }
+  }
+  ```
 
 ## Screenshots
 
+### Sniff Test Server
+
 <div align="center">
 
-<img src="assets/readme/desktop-welcome.png" />
+<img src="assets/readme/desktop-home.png" />
 
-<img src="assets/readme/desktop-dashboard.png" />
-
-<img width="49%" src="assets/readme/mobile-welcome.png" />
-
-<img width="49%" src="assets/readme/mobile-dashboard.png" />
+<img src="assets/readme/mobile-home.png" />
 
 </div>
 
