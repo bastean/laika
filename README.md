@@ -17,9 +17,9 @@
 <div align="center">
 
 [![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![go report card](https://goreportcard.com/badge/github.com/bastean/laika)](https://goreportcard.com/report/github.com/bastean/laika)
 [![commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](https://github.com/commitizen/cz-cli)
 [![release it](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-release--it-orange.svg)](https://github.com/release-it/release-it)
-[![github release](https://img.shields.io/github/v/release/bastean/laika.svg)](https://github.com/bastean/laika/releases)
 
 </div>
 
@@ -28,6 +28,13 @@
 [![upgrade workflow](https://github.com/bastean/laika/actions/workflows/upgrade.yml/badge.svg)](https://github.com/bastean/laika/actions/workflows/upgrade.yml)
 [![ci workflow](https://github.com/bastean/laika/actions/workflows/ci.yml/badge.svg)](https://github.com/bastean/laika/actions/workflows/ci.yml)
 [![release workflow](https://github.com/bastean/laika/actions/workflows/release.yml/badge.svg)](https://github.com/bastean/laika/actions/workflows/release.yml)
+
+</div>
+
+<div align="center">
+
+[![go reference](https://pkg.go.dev/badge/github.com/bastean/laika.svg)](https://pkg.go.dev/github.com/bastean/laika)
+[![github release](https://img.shields.io/github/v/release/bastean/laika.svg)](https://github.com/bastean/laika/releases)
 
 </div>
 
@@ -306,7 +313,7 @@ func main() {
 
 #### Please see
 
-- [go.mod](go.work) (from Workspaces)
+- [go.mod](go.mod)
 - [package.json](package.json)
 
 ## Contributing
