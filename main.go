@@ -1,6 +1,8 @@
 package laika
 
 import (
+	"slices"
+
 	"github.com/bastean/laika/pkg/context/data/application/createEmptyData"
 	"github.com/bastean/laika/pkg/context/data/application/readData"
 	"github.com/bastean/laika/pkg/context/data/application/saveData"
@@ -48,7 +50,15 @@ func (laika *Laika) SniffedEmails() []string {
 		}
 	}
 
-	return emails
+	uniques := []string{}
+
+	for _, email := range emails {
+		if !slices.Contains(uniques, email) {
+			uniques = append(uniques, email)
+		}
+	}
+
+	return uniques
 }
 
 func NewEmptyData() *aggregate.Data {
