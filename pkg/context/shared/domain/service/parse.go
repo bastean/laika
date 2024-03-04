@@ -2,6 +2,7 @@ package service
 
 import (
 	"html"
+	"net"
 	"net/mail"
 	"net/url"
 	"regexp"
@@ -55,6 +56,14 @@ func ParseAddresses(addresses []string) []string {
 
 	for _, address := range addresses {
 		parsed, err := mail.ParseAddress(address)
+
+		if err != nil {
+			continue
+		}
+
+		host := strings.Split(parsed.Address, "@")[1]
+
+		_, err = net.LookupIP(host)
 
 		if err != nil {
 			continue
