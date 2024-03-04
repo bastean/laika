@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.2.0](https://github.com/bastean/laika/compare/v0.1.0...v0.2.0) (2024-03-04)
+
+### Documentation
+
+- **readme:** add badges ([6d97dcb](https://github.com/bastean/laika/commit/6d97dcbec84822c3fc85890333168e46e9c2a5fd))
+
+### New Features
+
+- add context modules ([a228e87](https://github.com/bastean/laika/commit/a228e8745596e8561d20805ad83cff0386f7437e))
+- add host lookup ([90909c2](https://github.com/bastean/laika/commit/90909c2d2f98e193fb1306f5e742ed720b9b727b))
+
+### Bug Fixes
+
+- **deps:** upgrade dependencies ([fff5333](https://github.com/bastean/laika/commit/fff5333aa983cb6eed798f246377da9b4af74de3))
+
 ## 0.1.0 (2024-02-27)
 
 ### Chores
