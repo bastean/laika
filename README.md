@@ -123,7 +123,7 @@ Usage: laika [OPTIONS] sources...
 
 Sniffs the content of the sources
 
-E.g.: laika -jsonStore "laika" -urls -emails http://localhost:8080/
+E.g.: laika -jsonStore "laika" -urls -emails http://localhost:8080
 
   -emails
     	Sniff emails in the content (Required)
@@ -189,7 +189,7 @@ import (
 
 func main() {
 	// Test Server
-	sources := []string{"http://localhost:8080/"}
+	sources := []string{"http://localhost:8080"}
 
 	// Alias for "nil"
 	inMemory := laika.NewInMemoryStore()
@@ -226,7 +226,7 @@ import (
 
 func main() {
 	// Test Server
-	sources := []string{"http://localhost:8080/"}
+	sources := []string{"http://localhost:8080"}
 
 	localJson := laika.NewLocalJsonStore(".", "laika")
 

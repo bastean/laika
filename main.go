@@ -1,22 +1,23 @@
 package laika
 
 import (
-	"github.com/bastean/laika/pkg/context/application/createEmptyData"
-	"github.com/bastean/laika/pkg/context/application/readData"
-	"github.com/bastean/laika/pkg/context/application/saveData"
-	"github.com/bastean/laika/pkg/context/application/sniffContentFromUrl"
-	"github.com/bastean/laika/pkg/context/application/sniffEmails"
-	"github.com/bastean/laika/pkg/context/domain/aggregate"
-	"github.com/bastean/laika/pkg/context/domain/repository"
-	"github.com/bastean/laika/pkg/context/infrastructure/persistence"
+	"github.com/bastean/laika/pkg/context/data/application/createEmptyData"
+	"github.com/bastean/laika/pkg/context/data/application/readData"
+	"github.com/bastean/laika/pkg/context/data/application/saveData"
+	"github.com/bastean/laika/pkg/context/email/application/sniffEmails"
+	"github.com/bastean/laika/pkg/context/shared/domain/aggregate"
+	"github.com/bastean/laika/pkg/context/shared/domain/repository"
+	"github.com/bastean/laika/pkg/context/shared/infrastructure/http"
+	"github.com/bastean/laika/pkg/context/shared/infrastructure/persistence"
+	"github.com/bastean/laika/pkg/context/website/application/sniffContentFromUrls"
 )
 
 type Laika struct {
-	Data                *aggregate.Laika
-	Store               repository.Repository
-	SaveData            *saveData.SaveData
-	SniffContentFromUrl *sniffContentFromUrl.SniffContentFromUrl
-	SniffEmails         *sniffEmails.SniffEmails
+	Data                 *aggregate.Data
+	Store                repository.Repository
+	SaveData             *saveData.SaveData
+	SniffContentFromUrls *sniffContentFromUrls.SniffContentFromUrls
+	SniffEmails          *sniffEmails.SniffEmails
 }
 
 func (laika *Laika) SetStore(persistence repository.Repository) {
@@ -31,9 +32,7 @@ func (laika *Laika) SaveSniffed() {
 }
 
 func (laika *Laika) ContentFromUrls(urls []string) {
-	for _, url := range urls {
-		laika.SniffContentFromUrl.Run(laika.Data, url)
-	}
+	laika.SniffContentFromUrls.Run(laika.Data, urls)
 }
 
 func (laika *Laika) EmailsFromContent() {
@@ -52,7 +51,7 @@ func (laika *Laika) SniffedEmails() []string {
 	return emails
 }
 
-func NewEmptyData() *aggregate.Laika {
+func NewEmptyData() *aggregate.Data {
 	return createEmptyData.NewCreateEmptyData().Run()
 }
 
@@ -60,18 +59,18 @@ func NewInMemoryStore() repository.Repository {
 	return nil
 }
 
-func NewLocalJsonStore(path, filename string) *persistence.LocalJson {
+func NewLocalJsonStore(path, filename string) repository.Repository {
 	return persistence.NewLocalJson(path, filename)
 }
 
-func ReadDataFromStore(persistence repository.Repository) (*aggregate.Laika, error) {
+func ReadDataFromStore(persistence repository.Repository) (*aggregate.Data, error) {
 	return readData.NewReadData(persistence).Run()
 }
 
-func New(data *aggregate.Laika) *Laika {
+func New(data *aggregate.Data) *Laika {
 	return &Laika{
-		Data:                data,
-		SniffContentFromUrl: sniffContentFromUrl.NewSniffContentFromUrl(),
-		SniffEmails:         sniffEmails.NewSniffEmails(),
+		Data:                 data,
+		SniffContentFromUrls: sniffContentFromUrls.NewSniffContentFromUrls(http.NewClient()),
+		SniffEmails:          sniffEmails.NewSniffEmails(),
 	}
 }

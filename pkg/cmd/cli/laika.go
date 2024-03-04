@@ -21,7 +21,7 @@ var err error
 func usage() {
 	fmt.Printf("Usage: %s [OPTIONS] sources... \n", cli)
 	fmt.Printf("\nSniffs the content of the sources\n")
-	fmt.Printf("\nE.g.: %s -jsonStore \"laika\" -urls -emails http://localhost:8080/\n\n", cli)
+	fmt.Printf("\nE.g.: %s -jsonStore \"laika\" -urls -emails http://localhost:8080\n\n", cli)
 	flag.PrintDefaults()
 }
 
