@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/bastean/laika/compare/v0.2.0...v0.3.0) (2024-03-05)
+
+### New Features
+
+- **context:** upgrade href regexp ([d986e0f](https://github.com/bastean/laika/commit/d986e0fdabfa9d136ba7573884a02dde92ba4486))
+- **context:** upgrade plain email regexp ([1fd4068](https://github.com/bastean/laika/commit/1fd4068c6e256780b11df8c9532c94a1bf8ae6fa))
+- **context:** upgrade templ version ([bece3bd](https://github.com/bastean/laika/commit/bece3bd7393963f05e4c499afd3930fad59ea2dc))
+- **mod:** upgrade go version ([e86af8d](https://github.com/bastean/laika/commit/e86af8da017ce11ec1a2883eac4d7a8b895ced91))
+
+### Bug Fixes
+
+- **package:** remove duplicates from sniffed emails ([3f8cc88](https://github.com/bastean/laika/commit/3f8cc882801c01f4b6e95432888475495441b606))
+
 ## [0.2.0](https://github.com/bastean/laika/compare/v0.1.0...v0.2.0) (2024-03-04)
 
 ### Documentation
