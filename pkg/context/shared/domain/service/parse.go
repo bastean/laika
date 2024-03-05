@@ -14,7 +14,7 @@ func ParseHtml(rawHtml string) string {
 }
 
 func ParseLinks(scheme, host, html string) []string {
-	href := regexp.MustCompile(`href="(` + scheme + `:\/\/` + host + `|` + host + `|\/).*?"`)
+	href := regexp.MustCompile(`href="(` + scheme + `:\/\/(\.?.+\.)?` + host + `|(\.?.+\.)?` + host + `|\/).*?"`)
 
 	rawLinks := href.FindAllString(html, -1)
 
@@ -29,8 +29,13 @@ func ParseLinks(scheme, host, html string) []string {
 
 		route := strings.Split(rawLink, "\"")[1]
 
-		if strings.HasPrefix(route, "/") {
+		switch {
+		case strings.HasPrefix(route, "/"):
 			links = append(links, scheme+"://"+host+route)
+		case strings.HasPrefix(route, scheme):
+			links = append(links, route)
+		default:
+			links = append(links, scheme+"://"+route)
 		}
 	}
 
