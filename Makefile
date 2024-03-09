@@ -93,5 +93,5 @@ test-start:
 	@cd test/ && mkdir -p report
 	@TEST_URL='http://localhost:8080' go test -v -cover ./... > test/report/report.txt
 
-test-run:
+test-run: upgrade-go
 	@${npx} concurrently -s first -k --names 'SUT,TEST' 'make test-server' '${npx} wait-on -l http-get://localhost:8080 && make test-start'

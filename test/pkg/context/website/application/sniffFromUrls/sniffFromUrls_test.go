@@ -51,6 +51,6 @@ func (suite *SniffFromUrlsTestSuite) TestSniffFromUrls() {
 	suite.EqualValues(expected, actual)
 }
 
-func TestSniffContentFromUrlsSuite(t *testing.T) {
+func TestSniffFromUrlsSuite(t *testing.T) {
 	suite.Run(t, new(SniffFromUrlsTestSuite))
 }
