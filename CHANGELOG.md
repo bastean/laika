@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.0](https://github.com/bastean/laika/compare/v0.3.0...v0.4.0) (2024-03-09)
+
+### Chores
+
+- **make:** add upgrade-go before running test ([58de582](https://github.com/bastean/laika/commit/58de58230bebbeeccc6be9716ee5401ff5c060c8))
+
+### New Features
+
+- **context:** add playwright ([dcf8459](https://github.com/bastean/laika/commit/dcf8459debf3a6d29a5024d4874fdc83ce559200))
+
+### Bug Fixes
+
+- **deps:** upgrade dependencies ([a715e29](https://github.com/bastean/laika/commit/a715e297f0df77e8989810144f3ac95b5dbae0a9))
+
 ## [0.3.0](https://github.com/bastean/laika/compare/v0.2.0...v0.3.0) (2024-03-05)
 
 ### New Features
