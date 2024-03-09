@@ -13,28 +13,22 @@ func ParseHtml(rawHtml string) string {
 	return html.UnescapeString(rawHtml)
 }
 
-func ParseLinks(scheme, host, html string) []string {
-	href := regexp.MustCompile(`href="(` + scheme + `:\/\/(\.?.+\.)?` + host + `|(\.?.+\.)?` + host + `|\/).*?"`)
-
-	rawLinks := href.FindAllString(html, -1)
-
+func ParseLinks(scheme, host string, rawLinks []string) []string {
 	links := []string{}
 
-	isFile := regexp.MustCompile(`(\.\w+)"`)
+	isFile := regexp.MustCompile(`(\..*)`)
 
-	for _, rawLink := range rawLinks {
-		if isFile.MatchString(rawLink) {
+	for _, route := range rawLinks {
+		if isFile.MatchString(route) {
 			continue
 		}
-
-		route := strings.Split(rawLink, "\"")[1]
 
 		switch {
 		case strings.HasPrefix(route, "/"):
 			links = append(links, scheme+"://"+host+route)
-		case strings.HasPrefix(route, scheme):
+		case strings.HasPrefix(route, scheme) && strings.Contains(route, host):
 			links = append(links, route)
-		default:
+		case strings.HasPrefix(route, host):
 			links = append(links, scheme+"://"+route)
 		}
 	}

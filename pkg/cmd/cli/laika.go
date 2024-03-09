@@ -14,14 +14,13 @@ const cli = "laika"
 
 var jsonStore string
 var isUrls bool
-var sniffEmails bool
 var silent bool
 var err error
 
 func usage() {
 	fmt.Printf("Usage: %s [OPTIONS] sources... \n", cli)
 	fmt.Printf("\nSniffs the content of the sources\n")
-	fmt.Printf("\nE.g.: %s -jsonStore \"laika\" -urls -emails http://localhost:8080\n\n", cli)
+	fmt.Printf("\nE.g.: %s -jsonStore \"laika\" -urls http://localhost:8080\n\n", cli)
 	flag.PrintDefaults()
 }
 
@@ -34,7 +33,6 @@ func noContentError() {
 func Run() {
 	flag.StringVar(&jsonStore, "jsonStore", "", "Store filepath to save the sniffed content (default \"In Memory\")")
 	flag.BoolVar(&isUrls, "urls", false, "If the sources for sniffing content are urls (Required)")
-	flag.BoolVar(&sniffEmails, "emails", false, "Sniff emails in the content (Required)")
 	flag.BoolVar(&silent, "silent", false, "Do not show the sniffed content")
 
 	flag.Usage = usage
@@ -73,14 +71,7 @@ func Run() {
 
 	switch {
 	case isUrls:
-		sniff.ContentFromUrls(sources)
-	default:
-		noContentError()
-	}
-
-	switch {
-	case sniffEmails:
-		sniff.EmailsFromContent()
+		sniff.FromUrls(sources)
 	default:
 		noContentError()
 	}

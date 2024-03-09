@@ -9,7 +9,7 @@ type SaveData struct {
 	Repository repository.Repository
 }
 
-func (save *SaveData) Run(data *aggregate.Data) {
+func (save *SaveData) Run(data aggregate.Data) {
 	save.Repository.Save(data)
 }
 

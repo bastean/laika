@@ -1,15 +1,14 @@
 package aggregate
 
 type Sniffed struct {
-	Source  string
-	Content string
-	Found   map[string][]string
+	Source          string
+	Emails          []string
+	PhoneNumbers    []string
+	SocialMediaUrls []string
 }
 
-type Data struct {
-	Sniffed map[string][]*Sniffed
-}
+type Data map[string][]*Sniffed
 
-func Create() *Data {
-	return &Data{Sniffed: make(map[string][]*Sniffed)}
+func Create() Data {
+	return Data{}
 }

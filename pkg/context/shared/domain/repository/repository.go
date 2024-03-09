@@ -5,6 +5,6 @@ import (
 )
 
 type Repository interface {
-	Save(data *aggregate.Data) error
-	Read() (*aggregate.Data, error)
+	Save(data aggregate.Data) error
+	Read() (aggregate.Data, error)
 }

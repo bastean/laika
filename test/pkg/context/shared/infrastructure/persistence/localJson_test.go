@@ -42,6 +42,7 @@ func (suite *LocalJsonTestSuite) TestRead() {
 	actual, err := suite.sut.Read()
 
 	suite.NoError(err)
+
 	suite.EqualValues(expected, actual)
 }
 

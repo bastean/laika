@@ -22,9 +22,15 @@ func (suite *ReadDataTestSuite) SetupTest() {
 
 func (suite *ReadDataTestSuite) TestReadData() {
 	expected := aggregateMother.Create()
+
+	suite.repository.On("Read").Return(expected)
+
 	actual, err := suite.sut.Run()
 
+	suite.repository.AssertCalled(suite.T(), "Read")
+
 	suite.NoError(err)
+
 	suite.EqualValues(expected, actual)
 }
 

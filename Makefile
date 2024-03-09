@@ -47,6 +47,7 @@ init: upgrade-manager
 	@go install honnef.co/go/tools/cmd/staticcheck@latest
 	@go install github.com/a-h/templ/cmd/templ@latest
 	@go install github.com/cosmtrek/air@latest
+	@go run github.com/playwright-community/playwright-go/cmd/playwright@latest install chromium --with-deps
 	@curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin v3.63.11
 
 lint:
@@ -90,7 +91,7 @@ test-server:
 test-start:
 	@go clean -testcache
 	@cd test/ && mkdir -p report
-	@go test -v -cover ./... > test/report/report.txt
+	@TEST_URL='http://localhost:8080' go test -v -cover ./... > test/report/report.txt
 
 test-run:
 	@${npx} concurrently -s first -k --names 'SUT,TEST' 'make test-server' '${npx} wait-on -l http-get://localhost:8080 && make test-start'

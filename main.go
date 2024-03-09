@@ -1,25 +1,26 @@
 package laika
 
 import (
+	"log"
 	"slices"
 
 	"github.com/bastean/laika/pkg/context/data/application/createEmptyData"
 	"github.com/bastean/laika/pkg/context/data/application/readData"
 	"github.com/bastean/laika/pkg/context/data/application/saveData"
-	"github.com/bastean/laika/pkg/context/email/application/sniffEmails"
 	"github.com/bastean/laika/pkg/context/shared/domain/aggregate"
+	"github.com/bastean/laika/pkg/context/shared/domain/model"
 	"github.com/bastean/laika/pkg/context/shared/domain/repository"
-	"github.com/bastean/laika/pkg/context/shared/infrastructure/http"
 	"github.com/bastean/laika/pkg/context/shared/infrastructure/persistence"
-	"github.com/bastean/laika/pkg/context/website/application/sniffContentFromUrls"
+	"github.com/bastean/laika/pkg/context/shared/infrastructure/scraper"
+	"github.com/bastean/laika/pkg/context/website/application/sniffFromUrls"
 )
 
 type Laika struct {
-	Data                 *aggregate.Data
-	Store                repository.Repository
-	SaveData             *saveData.SaveData
-	SniffContentFromUrls *sniffContentFromUrls.SniffContentFromUrls
-	SniffEmails          *sniffEmails.SniffEmails
+	Data          aggregate.Data
+	Store         repository.Repository
+	SaveData      *saveData.SaveData
+	Scraper       model.Scraper
+	SniffFromUrls *sniffFromUrls.SniffFromUrls
 }
 
 func (laika *Laika) SetStore(persistence repository.Repository) {
@@ -33,20 +34,16 @@ func (laika *Laika) SaveSniffed() {
 	}
 }
 
-func (laika *Laika) ContentFromUrls(urls []string) {
-	laika.SniffContentFromUrls.Run(laika.Data, urls)
-}
-
-func (laika *Laika) EmailsFromContent() {
-	laika.SniffEmails.Run(laika.Data)
+func (laika *Laika) FromUrls(urls []string) {
+	laika.SniffFromUrls.Run(laika.Data, urls, &sniffFromUrls.SniffFromUrlsOptions{FollowLinks: true})
 }
 
 func (laika *Laika) SniffedEmails() []string {
 	emails := []string{}
 
-	for _, sniffed := range laika.Data.Sniffed {
+	for _, sniffed := range laika.Data {
 		for _, data := range sniffed {
-			emails = append(emails, data.Found["Emails"]...)
+			emails = append(emails, data.Emails...)
 		}
 	}
 
@@ -61,7 +58,7 @@ func (laika *Laika) SniffedEmails() []string {
 	return uniques
 }
 
-func NewEmptyData() *aggregate.Data {
+func NewEmptyData() aggregate.Data {
 	return createEmptyData.NewCreateEmptyData().Run()
 }
 
@@ -73,14 +70,20 @@ func NewLocalJsonStore(path, filename string) repository.Repository {
 	return persistence.NewLocalJson(path, filename)
 }
 
-func ReadDataFromStore(persistence repository.Repository) (*aggregate.Data, error) {
+func ReadDataFromStore(persistence repository.Repository) (aggregate.Data, error) {
 	return readData.NewReadData(persistence).Run()
 }
 
-func New(data *aggregate.Data) *Laika {
+func New(data aggregate.Data) *Laika {
+	scraper, err := scraper.NewPlaywright(&scraper.PlaywrightOptions{Headless: true})
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	return &Laika{
-		Data:                 data,
-		SniffContentFromUrls: sniffContentFromUrls.NewSniffContentFromUrls(http.NewClient()),
-		SniffEmails:          sniffEmails.NewSniffEmails(),
+		Data:          data,
+		Scraper:       scraper,
+		SniffFromUrls: sniffFromUrls.NewSniffFromUrls(scraper),
 	}
 }

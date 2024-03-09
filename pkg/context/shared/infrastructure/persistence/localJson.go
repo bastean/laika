@@ -30,7 +30,7 @@ func (localJson *LocalJson) load() ([]byte, error) {
 	return data, nil
 }
 
-func (localJson *LocalJson) Save(data *aggregate.Data) error {
+func (localJson *LocalJson) Save(data aggregate.Data) error {
 	dataEncoded, err := json.Marshal(data)
 
 	if err != nil {
@@ -52,18 +52,16 @@ func (localJson *LocalJson) Save(data *aggregate.Data) error {
 	return nil
 }
 
-func (localJson *LocalJson) Read() (*aggregate.Data, error) {
+func (localJson *LocalJson) Read() (aggregate.Data, error) {
 	dataDecoded, err := localJson.load()
 
 	if err != nil {
 		return nil, err
 	}
 
-	data := new(aggregate.Data)
+	data := aggregate.Create()
 
 	if len(dataDecoded) == 0 {
-		data.Sniffed = make(map[string][]*aggregate.Sniffed)
-
 		return data, nil
 	}
 

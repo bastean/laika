@@ -20,3 +20,21 @@ func SniffJsConcatenationEmails(content string) []string {
 
 	return rawEmails
 }
+
+func SniffEmails(content string) []string {
+	rawEmails := []string{}
+
+	rawEmails = append(rawEmails, SniffPlainEmails(content)...)
+
+	rawEmails = append(rawEmails, SniffJsConcatenationEmails(content)...)
+
+	contentWithoutComments := RemoveHtmlComments(content)
+
+	rawEmails = append(rawEmails, SniffPlainEmails(contentWithoutComments)...)
+
+	parsedEmails := ParseAddresses(rawEmails)
+
+	emails := RemoveDuplicates(parsedEmails)
+
+	return emails
+}
